@@ -16,7 +16,7 @@ class LaravelInertiaAdminServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('skeleton')
+            ->name('laravel-inertia-admin')
             ->hasConfigFile()
             ->hasViews()
             ->hasMigration('create_skeleton_table')
