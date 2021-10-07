@@ -2,6 +2,12 @@
     "name": "karim1999/laravel-inertia-admin",
     "description": "An Admin Dashboard for Laravel Created using React and Inertia js",
     "license": "MIT",
+    "keywords": [
+        "karim1999",
+        "laravel",
+        "inertia-admin"
+    ],
+    "homepage": "https://github.com/karim1999/laravel-inertia-admin",
     "authors": [
         {
             "name": "Karim Abdelgwad",
@@ -10,5 +16,33 @@
     ],
     "require-dev": {
         "orchestra/testbench": "^6.21"
+    },
+    "autoload": {
+        "psr-4": {
+            "Karim\\LaravelInertiaAdmin\\": "src/",
+            "Karim\\LaravelInertiaAdmin\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Karim\\LaravelInertiaAdmin\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Karim\\LaravelInertiaAdmin\\LaravelInertiaAdminServiceProvider"
+            ],
+            "aliases": {
+                "Skeleton": "Karim\\LaravelInertiaAdmin\\LaravelInertiaAdminFacade"
+            }
+        }
+    },
+    "require": {
+        "illuminate/contracts": "^8.63",
+        "spatie/laravel-package-tools": "^1.9"
     }
 }
