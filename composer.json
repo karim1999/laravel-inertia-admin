@@ -1,0 +1,14 @@
+{
+    "name": "karim1999/laravel-inertia-admin",
+    "description": "An Admin Dashboard for Laravel Created using React and Inertia js",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Karim Abdelgwad",
+            "email": "karim.elbadry2@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "orchestra/testbench": "^6.21"
+    }
+}
