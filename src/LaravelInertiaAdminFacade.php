@@ -11,6 +11,6 @@ class LaravelInertiaAdminFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'skeleton';
+        return 'LaravelInertiaAdmin';
     }
 }

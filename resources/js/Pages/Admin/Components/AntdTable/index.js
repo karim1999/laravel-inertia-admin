@@ -3,7 +3,7 @@ import {Inertia} from "@inertiajs/inertia";
 import {Table} from "antd";
 
 
-export default function AntdTableComponent({ columns, data, pageNum, pageData, links, options, path, totalNum, currentPage, pageSize }) {
+export default function AntdTableComponent({ columns, data, pageNum, pageData, links, path, totalNum, currentPage, pageSize, grid }) {
     const [selectedRowKeys, setSelectedRowKeys]= useState([]);
     const tableColumns = React.useMemo(() => {
         let finalColumns= [];
@@ -52,14 +52,14 @@ export default function AntdTableComponent({ columns, data, pageNum, pageData, l
         <div>
             <Table
                 pagination={{pageSize: pageSize, onChange: onChangePagination, total: totalNum, current: currentPage}}
-                rowKey={options?.key || "id"}
-                columns={tableColumns}
                 dataSource={data}
                 onChange={onChange}
                 rowSelection={{
                     selectedRowKeys,
                     onChange: onSelectChange,
                 }}
+                {...grid}
+                columns={columns}
             />
         </div>
     )

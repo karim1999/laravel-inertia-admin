@@ -5,22 +5,43 @@ namespace Karim\LaravelInertiaAdmin\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Inertia\Inertia;
+use Karim\LaravelInertiaAdmin\Module\Grid;
 
-class ModuleController extends Controller
+/**
+ *
+ */
+abstract class ModuleController extends Controller
 {
-    public $model= "";
-    public $pageSize= 10;
-    public $allowedFilters= ['id', 'name', 'email'];
-    public $allowedSorts= ['id', 'name', 'email'];
-    public $allowedIncludes= [];
-    public $allowedFields= [];
-    public $allowedAppends= [];
+    /**
+     * @var
+     */
+    protected $model;
+    /**
+     * @var
+     */
+    protected $query;
+    /**
+     * @var
+     */
+    protected $grid;
+    /**
+     * @var int
+     */
+    protected $pageSize= 10;
+
+    /**
+     * @var string[]
+     */
     public $options= [
         "key" => "id",
     ];
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function getData(Request $request){
-        $users = ($this->model)::query();
+        $users = ($this->getModel())::query();
         $sort_by= $request->sort_by;
         $sort_type= $request->sort_type === "descend" ? "desc" : "asc";
 
@@ -28,7 +49,7 @@ class ModuleController extends Controller
             $users= $users->orderBy($sort_by, $sort_type);
         }
 
-        $limit= $request->limit ?: $this->pageSize;
+        $limit= $request->limit ?: $this->getPageSize();
         $users= $users->paginate($limit);
         $users= $users->appends(request()->query());;
         return $users;
@@ -38,33 +59,21 @@ class ModuleController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function index(Request $request)
+    public function renderTable(Grid $grid, Request $request)
     {
         $records= $this->getData($request);
         return Inertia::render('Admin/Module/List', [
-            'headers' => [
-                [
-                    "title" => "ID",
-                    "dataIndex" => "id",
-                    "filter" => "text",
-                    "sorter" => true,
-                    "sortOrder" => ($request->sort_type ?: "ascend") === "descend" ? "descend" : "ascend"
-                ],
-                [
-                    "title" => "Name",
-                    "dataIndex" => "name",
-                    "filter" => "text",
-                ],
-                [
-                    "title" => "Email",
-                    "dataIndex" => "email",
-                    "filter" => "text",
-                ],
-            ],
+            'grid' => $grid,
             'records' => $records,
-            'options' => $this->options,
         ]);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Inertia\Response
+     */
+    abstract public function index(Request $request);
 
     /**
      * Show the form for creating a new resource.
@@ -131,4 +140,95 @@ class ModuleController extends Controller
     {
         //
     }
+
+    /**
+     * @return mixed
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * @param mixed $model
+     * @return ModuleController
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuery()
+    {
+        return $this->query;
+    }
+
+    /**
+     * @param mixed $query
+     * @return ModuleController
+     */
+    public function setQuery($query)
+    {
+        $this->query = $query;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGrid()
+    {
+        return $this->grid;
+    }
+
+    /**
+     * @param mixed $grid
+     * @return ModuleController
+     */
+    public function setGrid($grid)
+    {
+        $this->grid = $grid;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPageSize(): int
+    {
+        return $this->pageSize;
+    }
+
+    /**
+     * @param int $pageSize
+     * @return ModuleController
+     */
+    public function setPageSize(int $pageSize): ModuleController
+    {
+        $this->pageSize = $pageSize;
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param string[] $options
+     * @return ModuleController
+     */
+    public function setOptions(array $options): ModuleController
+    {
+        $this->options = $options;
+        return $this;
+    }
+
 }

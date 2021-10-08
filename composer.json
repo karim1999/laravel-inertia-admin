@@ -5,7 +5,9 @@
     "keywords": [
         "karim1999",
         "laravel",
-        "inertia-admin"
+        "laravel-inertia-admin",
+        "antd-admin",
+        "laravel-antd-admin"
     ],
     "homepage": "https://github.com/karim1999/laravel-inertia-admin",
     "authors": [

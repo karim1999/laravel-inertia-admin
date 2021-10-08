@@ -4,11 +4,11 @@ import useRequestFilters from "../Components/TableComponent/Filters/useRequestFi
 import AntdTableComponent from "../Components/AntdTable";
 import { usePage } from '@inertiajs/inertia-react'
 
-export default function List({records, headers, options}) {
+export default function List({records, grid}) {
     const columnFilters= useRequestFilters();
 
     const columns = React.useMemo(
-        () => headers,
+        () => grid.columns,
         []
     )
 
@@ -19,14 +19,15 @@ export default function List({records, headers, options}) {
     }
 
 
+    console.log({grid});
     const data = React.useMemo(() => records.data || records, [])
 
     return (
         <>
             <AntdTableComponent
                 path={records.path}
-                options={options}
                 links={records.links}
+                grid={grid}
                 columns={columns}
                 data={data}
                 pageData={{pageIndex: records.current_page - 1, filters: columnFiltersArr()}}
@@ -35,7 +36,6 @@ export default function List({records, headers, options}) {
                 currentPage={records.current_page}
                 pageSize={records.per_page}
             />
-
         </>
     )
 }
