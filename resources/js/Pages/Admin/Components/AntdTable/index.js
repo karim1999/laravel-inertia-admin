@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import {Inertia} from "@inertiajs/inertia";
 import {Table} from "antd";
 
-
 export default function AntdTableComponent({ columns, data, pageNum, pageData, links, path, totalNum, currentPage, pageSize, grid }) {
     const [selectedRowKeys, setSelectedRowKeys]= useState([]);
     const tableColumns = React.useMemo(() => {

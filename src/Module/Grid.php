@@ -26,7 +26,7 @@ class Grid implements Arrayable, Jsonable, JsonSerializable
     /**
      * @var null
      */
-    protected $footer= null;
+    protected $footer= "hi";
     /**
      * @var string
      */

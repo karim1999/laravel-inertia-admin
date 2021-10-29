@@ -11,9 +11,9 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.setPublicPath('resources/dist')
-    .js('resources/js/app.js', 'resources/dist/js').react()
-    .sass('resources/css/app.scss', 'resources/dist/css');
+mix.setPublicPath('../')
+    .js('resources/js/app.js', 'public/vendor/inertia-admin/js').react()
+    .sass('resources/css/app.scss', 'public/vendor/inertia-admin/css');
 
 if (! mix.inProduction()) {
     mix.webpackConfig({
@@ -23,3 +23,15 @@ if (! mix.inProduction()) {
     })
 
 }
+// mix.setPublicPath('resources/dist')
+//     .js('resources/js/app.js', 'resources/dist/js').react()
+//     .sass('resources/css/app.scss', 'resources/dist/css');
+//
+// if (! mix.inProduction()) {
+//     mix.webpackConfig({
+//         output: {
+//             chunkFilename: 'js/[name].js?id=[chunkhash]',
+//         }
+//     })
+//
+// }
